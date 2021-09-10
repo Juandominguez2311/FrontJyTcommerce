@@ -1,12 +1,8 @@
 export interface Product {
-    id:number,
+    product_id:number,
     sku:string,
-    nombre: string,
-    imagen:string,
-    precio:number
-    active: number
-    created_at: Date
-    deleted_at: Date
-    update_at: Date
+    name: string,
+    image:string,
+    price:number
 }
 

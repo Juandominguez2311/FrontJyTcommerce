@@ -1,0 +1,25 @@
+<p *ngIf="ProductList$">Listado de Productos</p>
+<p *ngIf="!(ProductList$)">No hay Productos cargados</p>
+<div class="row">
+    <input class="form-control" [(ngModel)]="campobuscado" name="campobuscado">
+    <button class="btn btn-success" (click)="BuscarJugador()">Buscar</button>
+</div>
+<table class="table table-stripe">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID </th>
+            <th>SKU </th>
+            <th>NOMBRE </th>
+            <th>IMAGEN </th>
+            <th>Precio </th>
+        </tr>
+    </thead>
+    <tr *ngIf="ProductList$ | async as product ">
+        <td>{{product.id}}</td>
+        <td>{{product.sku}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.image}}</td>
+        <td>{{product.price}}</td>
+
+    </tr>
+</table>

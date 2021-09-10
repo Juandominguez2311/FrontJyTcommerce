@@ -12,14 +12,14 @@ export class ProductsService {
 
   constructor(private http: HttpClient) { }
 
-  MostrarTodos(): Observable<Product[]>{
+  getAll(): Observable<any>{
     const headers={
       'Accept':'application/json',
       'Content-Type':'application/json',
       'Access-Control-Allow-Origin':'http://localhost:4200',
       'Access-Control-Allow-Methods': 'POST, PUT, GET, DELETE',
     }
-    return this.http.get<Product[]>(this.apiURL+1,{headers})
+    return this.http.get<any>(this.apiURL+1);
 
   }
   MostrarPorId(id:number): Observable<Product>{
