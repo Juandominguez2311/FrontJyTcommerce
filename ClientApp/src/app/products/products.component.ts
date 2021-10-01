@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { Product } from '../models/product';
+import { Component, OnInit,Input} from '@angular/core';
+import { Category, Product } from '../models/product';
 import { ProductsService } from '../services/products.service';
 import { ObjToArrayPipe } from './objToArray.pipe';
 
@@ -12,10 +12,10 @@ export class ProductsComponent implements OnInit {
   public ProductList: Product[] = []
   public Product: Product
   public campobuscado: string;
+  public Category : Category[];
+  @Input() itemProduct:Product;
   constructor(private servProd: ProductsService) { }
-  
-
-   
+    
   ngOnInit() {
     this.CargarListado();
   }
@@ -28,22 +28,47 @@ export class ProductsComponent implements OnInit {
         this.ProductList = data;
         console.log(typeof this.ProductList)
         console.log(this.ProductList)
-        return this.ProductList
-      }),
-      error=> alert(error),
-      ()=>  console.log("termino")    
+      })
   }
 
-  BuscarProducto() { 
+  getByCategory(category:number) {
+    if(category > 0){
+      this.servProd.getProductsFromCategory(category)
+      .subscribe(
+        data => {
+          console.log(typeof data)
+          console.log("//**")
+          this.ProductList = data;
+          console.log(typeof this.ProductList)
+          console.log(this.ProductList)
+    })} 
+    else{
+      
+      this.servProd.getAll()
+      .subscribe(
+        data => {
+          console.log(typeof data)
+          console.log("//**")
+          this.ProductList = data;
+          console.log(typeof this.ProductList)
+          console.log(this.ProductList)
+      })
+    }
+   
+  }
+  serchByName(name:string) {
+      
     if(this.campobuscado != null && this.campobuscado != "" ){
-      this.servProd.BuscarPorNombre(this.campobuscado).subscribe(
-        data => {  
+      this.servProd.serchByName(this.campobuscado).subscribe(
+        data => {
+          
           this.ProductList = data
         },
         err => console.log(err)
       );
     }else{
       this.CargarListado()
-    }    
+    }
+    
   }
 }
