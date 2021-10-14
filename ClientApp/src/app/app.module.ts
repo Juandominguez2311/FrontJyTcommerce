@@ -3,7 +3,7 @@ import { NgModule, Pipe } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
+import {NgxMercadopagoModule} from 'ngx-mercadopago'
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -41,11 +41,17 @@ import { CardsComponent } from './products/cards/cards.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMercadopagoModule.forRoot({
+      publishKey: 'TEST-a82c7392-8732-4670-abdf-f1e37a2d442c',
+      pathSDK: 'https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js'}),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'productos', component:ProductsComponent},
+      { path: 'productos/laptops', component:ProductsComponent},
+      { path: 'productos/celulares', component:ProductsComponent},
+      { path: 'productos/tvs', component:ProductsComponent},
       { path: 'productos-cards/:id', component: CardsComponent},
       { path: 'cart',component:CartComponent},
       { path: 'checkout',component:CheckoutComponent},
