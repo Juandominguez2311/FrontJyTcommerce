@@ -23,8 +23,8 @@ export class checkoutService {
     const product ={
       prodSku:data.sku,
       prodName:data.name,
-      unit_price:data.price,
-      quantity: data.quantity
+      unit_price:data.unit_price,
+      quantity: 1
 
     }
     return this.http.post<any>(this.apiURL,product,{headers});

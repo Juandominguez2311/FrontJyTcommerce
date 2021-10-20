@@ -18,7 +18,8 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { CrudproductosComponent } from './backoffice/crudproductos/crudproductos.component';
 import { FormularioProductosComponent } from './backoffice/formulario/formulario-productos/formulario-productos.component';
 import { CardsComponent } from './products/cards/cards.component';
-
+import { CargarScriptsService} from './services/cargar-scripts.service'
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,7 @@ import { CardsComponent } from './products/cards/cards.component';
     CrudproductosComponent,
     FormularioProductosComponent,
     CardsComponent,
-  ],
+    ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
@@ -62,7 +63,7 @@ import { CardsComponent } from './products/cards/cards.component';
 
     ])
   ],
-  providers: [],
+  providers: [{ provide: Window, useValue: window,  },CargarScriptsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
