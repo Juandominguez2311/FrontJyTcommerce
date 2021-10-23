@@ -6,27 +6,28 @@ import {checkoutService} from '../../services/checkout.service'
 import { get } from 'scriptjs';
 import {AppComponent} from '../../app.component'
 import {map} from "rxjs/operators";
-import { CargarScriptsService} from "../../services/cargar-scripts.service"
-declare function MercadopagoComprar():void
+import { CargarMercadopagoService} from "../../services/cargar-mercadopago.service"
+
+
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css']
 })
-export class CardsComponent implements /*AfterViewInit,*/OnInit {
+export class CardsComponent implements OnInit {
   id: Number;
   product;
   
   
   public preference : any;
   constructor(private route: ActivatedRoute,
-    private productService: ProductsService, private checkoutService: checkoutService, private cargarService: CargarScriptsService ) {}
+    private productService: ProductsService, private checkoutService: checkoutService, private cargarService: CargarMercadopagoService ) { cargarService.Cargar(['mercadopagojs'])}
 
     searchKey:string = "";
     init_point: any;
-  ngOnInit(): void {
+    ngOnInit(): void {
     
-    this.cargarService.Cargar(['mercadopagojs'])
+  
 
     this.route.paramMap.pipe(
       map((param: ParamMap) => {
@@ -45,12 +46,8 @@ export class CardsComponent implements /*AfterViewInit,*/OnInit {
     
     })
    
-    get("https://www.mercadopago.com.ar/integrations/v1/web-payment-checkout.js", () => {
-      //library has been loaded...
-    });
+
 
   }
-  onBuy(){
-    MercadopagoComprar()
-  }
+
 }

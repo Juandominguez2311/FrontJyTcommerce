@@ -1,5 +1,7 @@
 import { Component ,OnInit } from '@angular/core';
 import { ProductsService } from './services/products.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +11,9 @@ import { ProductsService } from './services/products.service';
 export class AppComponent implements OnInit {
   mercadoPagoVersion: any;
   title = 'app';
+ 
+ 
+   
   constructor(private window: Window) {}
 
   ngOnInit() {
@@ -16,11 +21,8 @@ export class AppComponent implements OnInit {
     script.type = "text/javascript";
     script.src = "https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js";
     document.body.appendChild(script);
-
-   // this.mercadoPagoVersion.setPublishableKey('TEST-a82c7392-8732-4670-abdf-f1e37a2d442c')
     setTimeout(() => {
       this.mercadoPagoVersion = this.window["Mercadopago"].version;
-      console.log(this.window["Mercadopago"]);
     }, 1000);
   }
 }

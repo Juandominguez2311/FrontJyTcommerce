@@ -18,8 +18,9 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { CrudproductosComponent } from './backoffice/crudproductos/crudproductos.component';
 import { FormularioProductosComponent } from './backoffice/formulario/formulario-productos/formulario-productos.component';
 import { CardsComponent } from './products/cards/cards.component';
-import { CargarScriptsService} from './services/cargar-scripts.service'
- 
+import { CargarScriptsService} from './services/cargar-scripts.service';
+import { LoginComponent } from './login/login.component'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,6 +37,8 @@ import { CargarScriptsService} from './services/cargar-scripts.service'
     CrudproductosComponent,
     FormularioProductosComponent,
     CardsComponent,
+    LoginComponent,
+   
     ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -59,8 +62,7 @@ import { CargarScriptsService} from './services/cargar-scripts.service'
       { path: 'boproductos',component:CrudproductosComponent},
       { path: 'producto-editar/:id',component:FormularioProductosComponent},
       { path: 'producto-nuevo',component:FormularioProductosComponent},
-
-
+      { path: 'login',component:LoginComponent}
     ])
   ],
   providers: [{ provide: Window, useValue: window,  },CargarScriptsService],

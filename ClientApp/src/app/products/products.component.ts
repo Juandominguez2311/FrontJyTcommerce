@@ -5,6 +5,7 @@ import { ProductsService } from '../services/products.service';
 import { ObjToArrayPipe } from './objToArray.pipe';
 import {checkoutService} from '../services/checkout.service'
 import { get } from 'scriptjs';
+import {CargarMercadopagoService} from '../services/cargar-mercadopago.service'
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -18,7 +19,9 @@ export class ProductsComponent implements OnInit {
   public preference : any;
   
   @Input() itemProduct:Product;
-  constructor(private servProd: ProductsService, private checkoutService: checkoutService, private router : Router ) { }
+  constructor(private servProd: ProductsService, private checkoutService: checkoutService, private router : Router, private cargarMP : CargarMercadopagoService ) { 
+    cargarMP.Cargar(["mercadopagojs"]);
+}
 
 
   URL="/productos";
