@@ -14,7 +14,7 @@ if (click) {
             prodSku: document.getElementById("sku").innerHTML,
             prodName: document.getElementById("name").innerHTML,
             unit_price: 1,
-            quantity: 1,
+            quantity: 1
         };
 
         fetch("http://localhost:9099/api/payment", {
@@ -50,10 +50,7 @@ if (click) {
             preference: {
                 id: preferenceId
             },
-            render: {
-                container: '#mercadopago-button', // Class name where the payment button will be displayed
-                label: 'Pagar', // Change the payment button text (optional)
-            }
+            autoOpen: true
         });
     }
 

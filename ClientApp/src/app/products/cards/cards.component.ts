@@ -9,6 +9,7 @@ import {AppComponent} from '../../app.component'
 import {map} from "rxjs/operators";
 import { CargarMercadopagoService} from "../../services/cargar-mercadopago.service"
 import {CartService} from '../../services/cart.service'
+import { ToastrService  } from 'ngx-toastr';
 
 
 
@@ -20,23 +21,28 @@ import {CartService} from '../../services/cart.service'
 export class CardsComponent implements OnInit {
   id: Number;
   product;
+  alert:boolean = false;
 
   public preference : any;
   constructor(private route: ActivatedRoute,
-    private productService: ProductsService, private checkoutService: checkoutService, private cargarService: CargarMercadopagoService, private cartService : CartService) {
-       cargarService.Cargar(['mercadopagojs'])}
+    private productService: ProductsService, 
+    private checkoutService: checkoutService,
+    private cargarService: CargarMercadopagoService, 
+    private cartService : CartService,
+     ) {
+
+       cargarService.Cargar(['mercadopagojs'])
+      }
 
     searchKey:string = "";
     init_point: any;
 
 
-    ngOnInit(): void {
+  ngOnInit(): void {
           this.route.paramMap.pipe(
       map((param: ParamMap) => {
         // @ts-ignore
         return param.params.id;
-        
-     
       })
     ).subscribe(prodId => {
       this.id = prodId;
@@ -48,7 +54,7 @@ export class CardsComponent implements OnInit {
     })
   }
   
-    addToCart(){
+  addToCart(){
       let product: CartModel;
       this.productService.getSingleProduct(this.id)
       .subscribe(p => {
@@ -71,11 +77,12 @@ export class CardsComponent implements OnInit {
         this.cartService.updateCartItemCount(cart.length);
         this.cartService.updateShoppingCart(cart);
         localStorage.setItem('Cart', JSON.stringify(cart));
+        this.alert= true
       });
       
-    }
-
-
   }
+
+
+}
 
 
