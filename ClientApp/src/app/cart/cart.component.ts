@@ -1,5 +1,8 @@
-import {CartModelServer} from '../models/cart'
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {CartService} from "../services/cart.service";
+import {Observable} from "rxjs";
+import {CartModel} from "../models/cart";
+import { CargarMercadopagoService} from "../services/cargar-mercadopago.service"
 
 
 
@@ -10,16 +13,50 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CartComponent implements OnInit {
 
-
-  cartData: CartModelServer;
-  cartTotal: Number;
-  subTotal: Number;
-
-  constructor(  ) {
+  cart: CartModel[] = [];
+  total: number = 0;
+  constructor(public cartService: CartService , private cargarService: CargarMercadopagoService) {cargarService.Cargar(['mercadopagojs'])
   }
 
   ngOnInit() {
+    this.cartService.cart.subscribe(a => this.cart = a);
+    this.getTotal();
+  }
 
+  getCartProductItems(){
+    this.cart = JSON.parse(localStorage.getItem('Cart'));
+  }
+
+  onRemoveProductsFromCart(productId: number){
+    this.cart = this.cart.filter(a => a.product_id != productId);
+    localStorage.setItem('Cart', JSON.stringify(this.cart));
+    this.cartService.updateCartItemCount(this.cart.length);
+    this.cartService.updateShoppingCart(this.cart);
+    this.getTotal();
+  }
+
+  onUpdateQuantity(type, productId){
+    if(type == 1){
+      this.cart.forEach((element, index) => {
+        if(element.product_id == productId){
+          this.cart[index].quantity = element.quantity + 1;
+        }
+      });
+    } else {
+      this.cart.forEach((element, index) => {
+        if(element.product_id == productId){
+          this.cart[index].quantity = element.quantity - 1;
+        }
+      });
+    }
+    this.getTotal();
+  }
+
+  getTotal(){
+   
+    this.cart.forEach((element) => {
+      this.total = this.total + (element.price*element.quantity);
+    })
   }
 
 }

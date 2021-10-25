@@ -1,17 +1,12 @@
 import {Product} from "../models/product";
 
-export interface CartModelServer {
-  total: Number;
-  data: [{
-    product: Product,
-    numInCart: Number
-  }];
+export interface CartModel {
+  product_id:number,
+  sku:string,
+  name: string,
+  quantity:number,
+  description:string,
+  image:string,
+  price:number
 }
 
-export interface CartModelPublic {
-  total: Number;
-  prodData: [{
-    id: Number,
-    incart: Number
-  }]
-}
