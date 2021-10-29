@@ -13,6 +13,7 @@ import { CargarMercadopagoService} from "../services/cargar-mercadopago.service"
 })
 export class CartComponent implements OnInit {
 
+  names : string[]
   cart: CartModel[] = [];
   total: number = 0;
   constructor(public cartService: CartService , private cargarService: CargarMercadopagoService) {cargarService.Cargar(['mercadopagojs'])
@@ -32,6 +33,7 @@ export class CartComponent implements OnInit {
     localStorage.setItem('Cart', JSON.stringify(this.cart));
     this.cartService.updateCartItemCount(this.cart.length);
     this.cartService.updateShoppingCart(this.cart);
+
     this.getTotal();
   }
 
@@ -55,8 +57,12 @@ export class CartComponent implements OnInit {
   getTotal(){
    
     this.cart.forEach((element) => {
-      this.total = this.total + (element.price*element.quantity);
+      this.total += (element.price*element.quantity);
     })
   }
-
+  deleteMethod(productId:number) {
+    if(confirm("Esta seguro de sacar el producto? ")) {
+      this.onRemoveProductsFromCart(productId);
+    }
+  }
 }

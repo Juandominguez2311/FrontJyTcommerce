@@ -10,7 +10,7 @@
                 <li><a href="#">JYT STORE</a></li>
             </ul>
             <ul class="header-links pull-right">
-                <li><a href="http://localhost:4200/cart"><i class="fa fa-shopping-cart"></i> Carrito</a></li>
+                <li><span class="badge rounded-pill badge-notification bg-danger ms-2" *ngIf="cart.length > 0">{{cart.length}}</span><a href="http://localhost:4200/cart"><i class="fa fa-shopping-cart"></i> Carrito</a></li>
                 <li><a href="http://localhost:4200/login"><i class="fa fa-user-o"></i> Ingresar</a></li>
             </ul>
         </div>

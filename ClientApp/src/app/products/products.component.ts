@@ -5,7 +5,10 @@ import { ProductsService } from '../services/products.service';
 import { ObjToArrayPipe } from './objToArray.pipe';
 import {checkoutService} from '../services/checkout.service'
 import { get } from 'scriptjs';
+import {CartModel} from '../models/cart'
+import {CartService} from '../services/cart.service'
 import {CargarMercadopagoService} from '../services/cargar-mercadopago.service'
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -19,11 +22,12 @@ export class ProductsComponent implements OnInit {
   public preference : any;
   
   @Input() itemProduct:Product;
-  constructor(private servProd: ProductsService, private checkoutService: checkoutService, private router : Router, private cargarMP : CargarMercadopagoService ) { 
+  constructor(private servProd: ProductsService, private cartService : CartService,private checkoutService: checkoutService, private router : Router, private cargarMP : CargarMercadopagoService ) { 
     cargarMP.Cargar(["mercadopagojs"]);
 }
-
-
+  id: Number;
+  product;
+  alert:boolean = false;
   URL="/productos";
   init_point: any;
   ngOnInit() {
@@ -84,11 +88,5 @@ export class ProductsComponent implements OnInit {
       this.CargarListado()
     }
   }
-  onBuy() {
-    this.checkoutService.goCheckOut(this.preference).subscribe(result => {
-      this.init_point = result.data.result;
-      console.log(this.init_point);
-      window.location.href = this.init_point;
-    },err => console.log(err))
-    };
+ 
 }

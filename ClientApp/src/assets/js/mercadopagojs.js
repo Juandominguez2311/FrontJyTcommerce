@@ -10,10 +10,9 @@ if (click) {
         $('mercadopago-button').attr("disabled", true);
 
         const orderData = {
-
             prodSku: document.getElementById("sku").innerHTML,
             prodName: document.getElementById("name").innerHTML,
-            unit_price: 1,
+            unit_price: document.getElementById("unit-price").innerHTML,
             quantity: 1
         };
 
@@ -31,10 +30,6 @@ if (click) {
                 console.log(preference)
                 createCheckoutButton(preference.id);
 
-                /* $(".shopping-cart").fadeOut(500);
-                 setTimeout(() => {
-                     $(".container_payment").show(500).fadeIn();
-                 }, 500);*/
             })
             .catch(function() {
                 alert("Unexpected error");
