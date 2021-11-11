@@ -1,4 +1,7 @@
-export type Roles = 'CLIENTE' | 'ADMIN';
+export interface Roles {
+    client?: boolean;
+    admin?: boolean;
+  }
 
 export interface User {
   uid: string;

@@ -3,18 +3,20 @@ var mp = new MercadoPago('TEST-a82c7392-8732-4670-abdf-f1e37a2d442c', {
 });
 // Handle call to backend and generate preference.
 var click = document.getElementById("mercadopago-button")
-console.log(click)
 if (click) {
     click.addEventListener("click", function() {
 
         $('mercadopago-button').attr("disabled", true);
-
+        const carrito = localStorage.getItem('Cart')
         const orderData = {
+
             prodSku: document.getElementById("sku").innerHTML,
             prodName: document.getElementById("name").innerHTML,
             unit_price: document.getElementById("unit-price").innerHTML,
-            quantity: 1
+            quantity: document.getElementById("quantity").value,
         };
+
+
 
         fetch("http://localhost:9099/api/payment", {
                 method: "POST",
@@ -27,7 +29,6 @@ if (click) {
                 return response.json();
             })
             .then(function(preference) {
-                console.log(preference)
                 createCheckoutButton(preference.id);
 
             })
@@ -48,23 +49,6 @@ if (click) {
             autoOpen: true
         });
     }
-
-    // Handle price update
-    /*function updatePrice() {
-        let quantity = document.getElementById("quantity").value;
-        let unitPrice = document.getElementById("unit-price").innerHTML;
-        let amount = parseInt(unitPrice) * parseInt(quantity);
-
-        //  document.getElementById("cart-total").innerHTML = "$ " + amount;
-        //  document.getElementById("summary-price").innerHTML = "$ " + unitPrice;
-        //document.getElementById("summary-quantity").innerHTML = quantity;
-        document.getElementById("summary-total").innerHTML = "$ " + amount;
-    }
-
-    document.getElementById("quantity").addEventListener("change", updatePrice);
-    updatePrice();*/
-
-    // Go back
     document.getElementById("go-back").addEventListener("click", function() {
         $(".container_payment").fadeOut(500);
         setTimeout(() => {

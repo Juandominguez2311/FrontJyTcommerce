@@ -83,8 +83,6 @@ SaveForm(){
     else{
       //creamos
       prodFormulario.product_id=0;
-      console.log(prodFormulario)
-      console.log("*******")
       this.prodServ.createProduct(prodFormulario)
           .subscribe( 
                   ()=> alert("Producto agregado"),

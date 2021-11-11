@@ -20,6 +20,10 @@ import { FormularioProductosComponent } from './backoffice/formulario/formulario
 import { CardsComponent } from './products/cards/cards.component';
 import { CargarScriptsService} from './services/cargar-scripts.service';
 import { LoginComponent } from './login/login.component'
+import {AuthenticationGuard} from './authentication.guard'
+import {AuthService} from './services/auth.service';
+import { SuccessComponent } from './feedback/success/success.component';
+import { FailureComponent } from './feedback/failure/failure.component'
 
 @NgModule({
   declarations: [
@@ -38,6 +42,8 @@ import { LoginComponent } from './login/login.component'
     FormularioProductosComponent,
     CardsComponent,
     LoginComponent,
+    SuccessComponent,
+    FailureComponent,
    
     ],
   imports: [
@@ -59,13 +65,15 @@ import { LoginComponent } from './login/login.component'
       { path: 'productos-cards/:id', component: CardsComponent},
       { path: 'cart',component:CartComponent},
       { path: 'checkout',component:CheckoutComponent},
-      { path: 'boproductos',component:CrudproductosComponent},
+      { path: 'boproductos',component:CrudproductosComponent,canActivate:[AuthenticationGuard]},
       { path: 'producto-editar/:id',component:FormularioProductosComponent},
       { path: 'producto-nuevo',component:FormularioProductosComponent},
-      { path: 'login',component:LoginComponent}
+      { path: 'login',component:LoginComponent},
+      { path: 'payment/feedback/success', component:SuccessComponent},
+      { path: 'payment/feedback/failure', component:SuccessComponent}
     ])
   ],
-  providers: [{ provide: Window, useValue: window,  },CargarScriptsService],
+  providers: [{provide: Window, useValue: window},AuthenticationGuard,AuthService,CargarScriptsService,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

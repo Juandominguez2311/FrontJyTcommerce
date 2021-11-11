@@ -24,11 +24,8 @@ export class CrudproductosComponent implements OnInit {
     this.servProd.getAll()
     .subscribe(
       data => {
-        console.log(typeof data)
-        console.log("//**")
         this.ProductList = data;
-        console.log(typeof this.ProductList)
-        console.log(this.ProductList)
+        console.log(localStorage.getItem('token'))
       })
   }
 
@@ -40,7 +37,7 @@ export class CrudproductosComponent implements OnInit {
     .subscribe(
       ()=> this.CargarListado(),
       error=> alert(error),
-      ()=>  console.log("borro el Jugador"),
+      ()=>  console.log("borro el producto"),
     );
   }
 }

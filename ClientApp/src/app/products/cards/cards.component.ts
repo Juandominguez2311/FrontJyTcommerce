@@ -68,7 +68,7 @@ export class CardsComponent implements OnInit {
           let currentProduct = cart.filter(a => a.product_id == product.product_id);
           if(currentProduct.length > 0){
             cart.filter(a => {
-              a.quantity = a.quantity + 1
+              a.quantity = a.quantity 
             });
           } else{
             cart.push(product);

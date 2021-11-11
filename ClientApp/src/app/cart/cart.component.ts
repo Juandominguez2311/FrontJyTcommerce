@@ -3,6 +3,7 @@ import {CartService} from "../services/cart.service";
 import {Observable} from "rxjs";
 import {CartModel} from "../models/cart";
 import { CargarMercadopagoService} from "../services/cargar-mercadopago.service"
+import { getLocaleDayNames } from '@angular/common';
 
 
 
@@ -38,6 +39,7 @@ export class CartComponent implements OnInit {
   }
 
   onUpdateQuantity(type, productId){
+    this.total = 0;
     if(type == 1){
       this.cart.forEach((element, index) => {
         if(element.product_id == productId){

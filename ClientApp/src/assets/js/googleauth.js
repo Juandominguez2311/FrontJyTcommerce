@@ -17,10 +17,12 @@ document.getElementById('login').addEventListener('click', GoogleLogin)
 document.getElementById('logout').addEventListener('click', LogoutUser)
 
 let provider = new firebase.auth.GoogleAuthProvider()
+    //console.log(provider)
 
 function GoogleLogin() {
-    console.log('Login Btn Call')
+    //console.log('Login Btn Call')
     firebase.auth().signInWithPopup(provider).then(res => {
+
         console.log(res.user)
         document.getElementById('LoginScreen').style.display = "none"
         document.getElementById('dashboard').style.display = "block"
@@ -37,6 +39,12 @@ function showUserDetails(user) {
           <p display="none"> ${user.email} </p>
           
         `
+    if (/istea.com.ar/.test(user.email)) {
+        localStorage.setItem('token', "admin")
+    } else {
+        localStorage.setItem('token', "client")
+    }
+    console.log("token : " + localStorage.getItem('token'))
 }
 
 function checkAuthState() {
@@ -52,10 +60,11 @@ function checkAuthState() {
 }
 
 function LogoutUser() {
-    console.log('Logout Btn Call')
+    //console.log('Logout Btn Call')
     firebase.auth().signOut().then(() => {
         document.getElementById('LoginScreen').style.display = "block"
         document.getElementById('dashboard').style.display = "none"
+        localStorage.removeItem('token')
     }).catch(e => {
         console.log(e)
     })
