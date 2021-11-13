@@ -23,7 +23,8 @@ import { LoginComponent } from './login/login.component'
 import {AuthenticationGuard} from './authentication.guard'
 import {AuthService} from './services/auth.service';
 import { SuccessComponent } from './feedback/success/success.component';
-import { FailureComponent } from './feedback/failure/failure.component'
+import { FailureComponent } from './feedback/failure/failure.component';
+import { ConfirmComponent } from './products/cards/confirm/confirm.component'
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { FailureComponent } from './feedback/failure/failure.component'
     LoginComponent,
     SuccessComponent,
     FailureComponent,
+    ConfirmComponent,
    
     ],
   imports: [
@@ -69,6 +71,7 @@ import { FailureComponent } from './feedback/failure/failure.component'
       { path: 'producto-editar/:id',component:FormularioProductosComponent},
       { path: 'producto-nuevo',component:FormularioProductosComponent},
       { path: 'login',component:LoginComponent},
+      { path: 'comprar-producto', component:ConfirmComponent},
       { path: 'payment/feedback/success', component:SuccessComponent},
       { path: 'payment/feedback/failure', component:SuccessComponent}
     ])

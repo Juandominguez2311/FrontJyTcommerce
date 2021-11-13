@@ -12,6 +12,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 document.getElementById('dashboard').style.display = "none"
+document.getElementById('boproductos').style.display = "none"
 
 document.getElementById('login').addEventListener('click', GoogleLogin)
 document.getElementById('logout').addEventListener('click', LogoutUser)
@@ -25,6 +26,7 @@ function GoogleLogin() {
 
         console.log(res.user)
         document.getElementById('LoginScreen').style.display = "none"
+        document.getElementById('boproductos').style.display = "none"
         document.getElementById('dashboard').style.display = "block"
         showUserDetails(res.user)
     }).catch(e => {
@@ -41,6 +43,7 @@ function showUserDetails(user) {
         `
     if (/istea.com.ar/.test(user.email)) {
         localStorage.setItem('token', "admin")
+        document.getElementById('boproductos').style.display = "block"
     } else {
         localStorage.setItem('token', "client")
     }

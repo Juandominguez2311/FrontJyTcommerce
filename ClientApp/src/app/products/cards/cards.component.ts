@@ -20,7 +20,7 @@ import { ToastrService  } from 'ngx-toastr';
 })
 export class CardsComponent implements OnInit {
   id: Number;
-  product;
+  product : CartModel;
   alert:boolean = false;
 
   public preference : any;
@@ -31,7 +31,7 @@ export class CardsComponent implements OnInit {
     private cartService : CartService,
      ) {
 
-       cargarService.Cargar(['mercadopagojs'])
+       cargarService.Cargar(['mercadopagojsSingleproduct'])
       }
 
     searchKey:string = "";
@@ -39,6 +39,7 @@ export class CardsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
           this.route.paramMap.pipe(
       map((param: ParamMap) => {
         // @ts-ignore
@@ -48,10 +49,11 @@ export class CardsComponent implements OnInit {
       this.id = prodId;
       this.productService.getSingleProduct(this.id).subscribe(prod => {
         this.product = prod;
-
         this.preference = prod;
-      });    
+      });
+  
     })
+    this.buySingleProduct()
   }
   
   addToCart(){
@@ -81,8 +83,30 @@ export class CardsComponent implements OnInit {
       });
       
   }
-
-
+  buySingleProduct(){
+    let product: CartModel;
+      this.productService.getSingleProduct(this.id)
+      .subscribe(p => {
+        product = p as CartModel;
+        product.quantity = 1
+        let cart: CartModel[] = JSON.parse(localStorage.getItem('Cart'));
+        if(cart == null){
+          cart = [];
+          cart.push(product);
+        } else{
+          let currentProduct = cart.filter(a => a.product_id == product.product_id);
+          if(currentProduct.length > 0){
+            cart.filter(a => {
+              a.quantity = a.quantity 
+            });
+          } else{
+            cart.push(product);
+          }
+        }
+        this.cartService.updateCartItemCount(cart.length);
+        this.cartService.updateShoppingCart(cart);
+        localStorage.setItem('Cart', JSON.stringify(cart));
+        console.log(localStorage.getItem('Cart'))
+      })
+  }
 }
-
-

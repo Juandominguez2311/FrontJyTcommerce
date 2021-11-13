@@ -7,8 +7,7 @@ if (click) {
     click.addEventListener("click", function() {
 
         $('mercadopago-button').attr("disabled", true);
-        const items = JSON.parse(localStorage.getItem('Cart'))
-        localStorage.clear()
+        const items = localStorage.getItem('Compra')
         const orderData = {
 
             items
