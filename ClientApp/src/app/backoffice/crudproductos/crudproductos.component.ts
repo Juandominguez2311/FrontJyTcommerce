@@ -40,4 +40,18 @@ export class CrudproductosComponent implements OnInit {
       ()=>  console.log("borro el producto"),
     );
   }
+  serchByName(campobuscado) {
+      
+    if(this.campobuscado != null && this.campobuscado != "" ){
+      this.servProd.serchByName(this.campobuscado).subscribe(
+        data => {
+          
+          this.ProductList = data
+        },
+        err => console.log(err)
+      );
+    }else{
+      this.CargarListado()
+    }
+  }
 }

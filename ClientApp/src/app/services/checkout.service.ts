@@ -9,7 +9,7 @@ import { ɵangular_packages_core_testing_testing_c } from '@angular/core/testing
 })
 export class checkoutService {
 
-  private apiURL : string='http://localhost:9099/api/payment'
+  private apiURL : string='https://jcommerce.herokuapp.com/api/payment'
 
   constructor(private http: HttpClient) { }
 

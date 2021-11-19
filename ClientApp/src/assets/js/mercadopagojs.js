@@ -8,7 +8,6 @@ if (click) {
 
         $('mercadopago-button').attr("disabled", true);
         const items = JSON.parse(localStorage.getItem('Cart'))
-        localStorage.clear()
         const orderData = {
 
             items
@@ -21,7 +20,7 @@ if (click) {
 
 
 
-        fetch("http://localhost:9099/api/payment", {
+        fetch("https://jcommerce.herokuapp.com/api/payment", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -33,7 +32,7 @@ if (click) {
             })
             .then(function(preference) {
                 createCheckoutButton(preference.id);
-
+                localStorage.clear()
             })
             .catch(function() {
                 alert("Unexpected error");

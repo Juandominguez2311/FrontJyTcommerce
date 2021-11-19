@@ -8,7 +8,7 @@ import { Product } from '../models/product';
 })
 export class ProductsService {
 
-  private apiURL : string='http://localhost:9099/api/product/'
+  private apiURL : string='https://jcommerce.herokuapp.com/product/'
 
   constructor(private http: HttpClient) { }
 

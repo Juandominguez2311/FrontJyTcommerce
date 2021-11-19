@@ -63,6 +63,7 @@ export class CartComponent implements OnInit {
    
     this.cart.forEach((element) => {
       this.total += (element.price*element.quantity);
+      localStorage.setItem('total',this.total.toString())
     })
   }
   deleteMethod(productId:number) {
